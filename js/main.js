@@ -3,24 +3,11 @@
  */
 $(document).ready(function () {
 
-    $("#color").focus();
-    $("#color").keypress(function (event) {
+    $("#color").focus().select();
 
-        console.log(event);
+    $("#color").on('change keydown paste input', function(){
 
-        if (!event.ctrlKey || !event.metaKey || event.which != 13) {
-
-            var regex = new RegExp("^[a-fA-F0-9]+$");
-            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-            if (!regex.test(key)) {
-                event.preventDefault();
-                return false;
-            }
-
-        }
-
-        // $(this).val($(this).val().replace(/[^a-fA-F0-9]/gi, ''));
-
+        // console.log(event);
         var input_color = $(this).val();
 
         $('body').css('background-color', '#' + input_color);
@@ -35,7 +22,7 @@ $(document).ready(function () {
             }
         }
 
-        if (input_color == '') {
+        if (input_color === '') {
             if (rgb2hex($('body').css('background-color')).substr(1) < '888888'){
                 $(this).css('color', '#efefef');
                 $('h1').css('color', '#efefef');
@@ -46,11 +33,26 @@ $(document).ready(function () {
             }
         }
 
-        if(input_color.length > 5) {
-            $('#color').select();
-            console.log(input_color);
-        }
+        // if(input_color.length > 5) {
+        //     $('#color').select();
+        //     console.log(input_color);
+        // }
     });
+
+    // $("#color").keypress(function(){
+        // if (!event.ctrlKey || !event.metaKey || event.which != 13) {
+        //
+        //     var regex = new RegExp("^[a-fA-F0-9]+$");
+        //     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        //     if (!regex.test(key)) {
+        //         event.preventDefault();
+        //         return false;
+        //     }
+        //
+        // }
+
+        // $(this).val($(this).val().replace(/[^a-fA-F0-9]/gi, ''));
+    // });
 });
 
 var hexDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
